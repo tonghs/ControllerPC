@@ -11,8 +11,7 @@ using System.Xml.Linq;
 namespace Controller
 {
     public partial class Main : Form
-    {
-        
+    {        
         SockectUtil su = new SockectUtil();
         XmlUtil xu = new XmlUtil();
         public Main()
@@ -111,6 +110,11 @@ namespace Controller
             ModuleMgr mgrForm = new ModuleMgr();
             mgrForm.ShowDialog();
             BindData();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //this.Controls
         }
     }
 }

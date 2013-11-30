@@ -63,6 +63,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblIp = new System.Windows.Forms.Label();
             this.lblPort = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,21 +91,21 @@
             // file_NewModule
             // 
             this.file_NewModule.Name = "file_NewModule";
-            this.file_NewModule.Size = new System.Drawing.Size(152, 22);
+            this.file_NewModule.Size = new System.Drawing.Size(124, 22);
             this.file_NewModule.Text = "添加模块";
             this.file_NewModule.Click += new System.EventHandler(this.file_NewModule_Click);
             // 
             // file_ModuleMgr
             // 
             this.file_ModuleMgr.Name = "file_ModuleMgr";
-            this.file_ModuleMgr.Size = new System.Drawing.Size(152, 22);
+            this.file_ModuleMgr.Size = new System.Drawing.Size(124, 22);
             this.file_ModuleMgr.Text = "模块管理";
             this.file_ModuleMgr.Click += new System.EventHandler(this.file_ModuleMgr_Click);
             // 
             // file_Exit
             // 
             this.file_Exit.Name = "file_Exit";
-            this.file_Exit.Size = new System.Drawing.Size(152, 22);
+            this.file_Exit.Size = new System.Drawing.Size(124, 22);
             this.file_Exit.Text = "退出";
             this.file_Exit.Click += new System.EventHandler(this.file_Exit_Click);
             // 
@@ -398,11 +399,22 @@
             this.lblPort.TabIndex = 14;
             this.lblPort.Text = "0000";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(238, 262);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 292);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblPort);
             this.Controls.Add(this.lblIp);
             this.Controls.Add(this.switch6Off);
@@ -482,6 +494,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblIp;
         private System.Windows.Forms.Label lblPort;
+        private System.Windows.Forms.Button button1;
     }
 }
 
