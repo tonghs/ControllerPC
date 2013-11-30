@@ -112,9 +112,5 @@ namespace Controller
             BindData();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //this.Controls
-        }
     }
 }
