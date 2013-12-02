@@ -51,7 +51,7 @@
             this.helpMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1203, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1142, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -103,9 +103,9 @@
             // gboxArea
             // 
             this.gboxArea.Controls.Add(this.panelMenu);
-            this.gboxArea.Location = new System.Drawing.Point(13, 22);
+            this.gboxArea.Location = new System.Drawing.Point(13, 28);
             this.gboxArea.Name = "gboxArea";
-            this.gboxArea.Size = new System.Drawing.Size(200, 681);
+            this.gboxArea.Size = new System.Drawing.Size(139, 681);
             this.gboxArea.TabIndex = 15;
             this.gboxArea.TabStop = false;
             this.gboxArea.Text = "区域";
@@ -113,7 +113,7 @@
             // gboxController
             // 
             this.gboxController.Controls.Add(this.panelController);
-            this.gboxController.Location = new System.Drawing.Point(219, 22);
+            this.gboxController.Location = new System.Drawing.Point(158, 28);
             this.gboxController.Name = "gboxController";
             this.gboxController.Size = new System.Drawing.Size(968, 681);
             this.gboxController.TabIndex = 15;
@@ -125,22 +125,22 @@
             this.panelMenu.AutoScroll = true;
             this.panelMenu.Location = new System.Drawing.Point(7, 15);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(187, 660);
+            this.panelMenu.Size = new System.Drawing.Size(126, 660);
             this.panelMenu.TabIndex = 0;
             // 
             // panelController
             // 
             this.panelController.AutoScroll = true;
-            this.panelController.Location = new System.Drawing.Point(6, 15);
+            this.panelController.Location = new System.Drawing.Point(7, 15);
             this.panelController.Name = "panelController";
-            this.panelController.Size = new System.Drawing.Size(961, 660);
+            this.panelController.Size = new System.Drawing.Size(960, 660);
             this.panelController.TabIndex = 0;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 722);
+            this.ClientSize = new System.Drawing.Size(1142, 722);
             this.Controls.Add(this.gboxController);
             this.Controls.Add(this.gboxArea);
             this.Controls.Add(this.menuStrip1);

@@ -38,8 +38,11 @@ namespace Controller
                         btn.Name = name;
                         btn.Text = name;
                         btn.FlatStyle = FlatStyle.Flat;
+                        btn.FlatAppearance.BorderSize = 0;
+                        btn.TextAlign = ContentAlignment.MiddleLeft;
+                        btn.Width = 125;
                         btn.Click += new EventHandler(btn_Click);
-                        btn.Location = new Point(5, i * 25);
+                        btn.Location = new Point(0, i * 25 + 5);
                         this.panelMenu.Controls.Add(btn);
                     }
                 }                
@@ -84,10 +87,14 @@ namespace Controller
             {
                 Button btn = (Button)control;
                 btn.BackColor = Control.DefaultBackColor;
+                btn.Font = new Font("宋体", 9F, FontStyle.Regular);
+                btn.ForeColor = Color.Black;
             }
 
             Button objBtn = (Button)sender;
             objBtn.BackColor = Color.Green;
+            objBtn.Font = new Font("宋体", 9F, FontStyle.Bold);
+            objBtn.ForeColor = Color.White;
 
             DataTable dt = xu.GetXmlTable(objBtn.Name);
             if (dt != null && dt.Rows != null && dt.Rows.Count > 0)
@@ -102,40 +109,40 @@ namespace Controller
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Panel panel = new Panel();
-                panel.Size = new Size(180, 240);
-                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 250);
+                panel.Size = new Size(180, 230);
+                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 240);
 
                 DataRow dr = dt.Rows[i];
                 Label lblName = new Label();
                 lblName.Text = dr["name"].ToString();
                 lblName.Font = new Font("宋体", 11F, FontStyle.Bold);
-                lblName.Location = new Point(leftPadding, 25);
+                lblName.Location = new Point(leftPadding, 10);
                 panel.Controls.Add(lblName);
 
                 Label lblIp = new Label();
                 lblIp.Text = dr["ip"].ToString();
                 lblIp.Name = "lblIp" + i;
-                lblIp.Location = new Point(leftPadding, 50);
+                lblIp.Location = new Point(leftPadding, 35);
                 panel.Controls.Add(lblIp);
 
                 Label lblPort = new Label();
                 lblPort.Text = dr["port"].ToString();
                 lblPort.Name = "lblPort" + i;
-                lblPort.Location = new Point(100 + leftPadding, 50);
+                lblPort.Location = new Point(100 + leftPadding, 35);
                 panel.Controls.Add(lblPort);
 
                 for (int j = 0; j < 6; j++)
                 {
                     Label lblSwitch = new Label();
                     lblSwitch.Width = 40;
-                    lblSwitch.Location = new Point(leftPadding, j * 25 + 78);
+                    lblSwitch.Location = new Point(leftPadding, j * 25 + 63);
                     lblSwitch.Text = dr["switch" + (j + 1)].ToString();
                     panel.Controls.Add(lblSwitch);
 
                     Button btn = new Button();
                     btn.Text = "开";
                     btn.Tag = 1;
-                    btn.Location = new Point(60 + leftPadding, j * 25 + 75);
+                    btn.Location = new Point(60 + leftPadding, j * 25 + 60);
                     btn.Name = "btn_" + j + "_" + i;//btn_开关索引_模块索引
                     btn.Click += new EventHandler(switch_Click);
                     panel.Controls.Add(btn);
