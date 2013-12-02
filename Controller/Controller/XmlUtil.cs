@@ -4,24 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Xml;
+using System.IO;
 
 namespace Controller
 {    
     class XmlUtil
     {
-        string xmlpath = "modules.xml";
+        string xmlpath = "";
         /// <summary>
         /// 获取xml内容 转换为table
         /// </summary>
         /// <returns></returns>
-        public DataTable GetXmlTable()
+        public DataTable GetXmlTable(string areaName)
         {
+            string xmlpath = areaName + ".xml";
             DataTable dt = new DataTable();
             DataSet xmlds = new DataSet();
             xmlds.ReadXml(xmlpath);
             if (xmlds != null && xmlds.Tables.Count > 0)
             {
                 dt = xmlds.Tables[0];
+            }
+
+            return dt;
+        }
+
+        public DataTable GetArea()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn("name"));
+
+            DirectoryInfo dir = new DirectoryInfo(System.Environment.CurrentDirectory);
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                if (file.Extension == ".xml")
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["name"] = file.Name.Substring(0, file.Name.Length - 4);
+                    dt.Rows.Add(dr);
+                }
             }
 
             return dt;

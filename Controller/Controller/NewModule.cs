@@ -20,14 +20,14 @@ namespace Controller
             InitializeComponent();
         }
 
-        public NewModule(string ip, string action)
+        public NewModule(string ip, string action, string areaName)
         {
             InitializeComponent();
             this.ip_ = ip;
             this.action = action;
             if (!action.Equals("add"))
             {
-                DataTable dt = xu.GetXmlTable();
+                DataTable dt = xu.GetXmlTable(areaName);
                 if (dt.Rows != null && dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
@@ -74,7 +74,7 @@ namespace Controller
                 }
                 else
                 {
-                    DataTable dt = xu.GetXmlTable();
+                    DataTable dt = xu.GetXmlTable("modules");
                     if (dt.Rows != null && dt.Rows.Count > 0)
                     {
                         foreach (DataRow dr in dt.Rows)
@@ -104,7 +104,7 @@ namespace Controller
                 }
                 else
                 {
-                    DataTable dt = xu.GetXmlTable();
+                    DataTable dt = xu.GetXmlTable("modules");
                     if (dt.Rows != null && dt.Rows.Count > 0)
                     {
                         foreach (DataRow dr in dt.Rows)

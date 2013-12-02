@@ -12,16 +12,16 @@ namespace Controller
     public partial class ModuleMgr : Form
     {
         XmlUtil xu = new XmlUtil();
-        public ModuleMgr()
+        public ModuleMgr(string areaName)
         {
             InitializeComponent();
             dgvModules.AutoGenerateColumns = false;
-            this.BindData();
+            this.BindData(areaName);
         }
 
-        public void BindData()
+        public void BindData(string areaName)
         {
-            DataTable dt = xu.GetXmlTable();
+            DataTable dt = xu.GetXmlTable(areaName);
             dgvModules.DataSource = dt;
             //为每行数据增加编辑列。
             //创建一个DataGridViewLinkColumn列
@@ -61,12 +61,12 @@ namespace Controller
             {
                 case 3:
                     UpdateModule(ip);
-                    dt = xu.GetXmlTable();
+                    dt = xu.GetXmlTable("modules");
                     dgvModules.DataSource = dt;
                     break;
                 case 4:
                     DelModule(ip);
-                    dt = xu.GetXmlTable();
+                    dt = xu.GetXmlTable("modules");
                     dgvModules.DataSource = dt;
                     break;
                 case 5:
@@ -77,7 +77,7 @@ namespace Controller
 
         private void ViewModule(string ip)
         {
-            NewModule nmFrom = new NewModule(ip, "view");
+            NewModule nmFrom = new NewModule(ip, "view", "modules");
             nmFrom.ShowDialog();
         }
 
@@ -91,7 +91,7 @@ namespace Controller
 
         private void UpdateModule(string ip)
         {
-            NewModule nmFrom = new NewModule(ip, "mod");
+            NewModule nmFrom = new NewModule(ip, "mod", "modules");
             nmFrom.ShowDialog();
         }
 
