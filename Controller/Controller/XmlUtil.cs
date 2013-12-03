@@ -10,7 +10,6 @@ namespace Controller
 {    
     class XmlUtil
     {
-        string xmlpath = "";
         /// <summary>
         /// 获取xml内容 转换为table
         /// </summary>
@@ -55,8 +54,9 @@ namespace Controller
         /// <param name="ip"></param>
         /// <param name="port"></param>
         /// <param name="switches"></param>
-        public void AddModule(string name, string ip, string port, string[] switches)
+        public void AddModule(string name, string ip, string port, string[] switches, string areaName)
         {
+            string xmlpath = areaName + ".xml";
             XmlElement module = null, root = null;
             XmlDocument xmldoc = new XmlDocument();
 
@@ -90,8 +90,9 @@ namespace Controller
             xmldoc.Save(xmlpath);
         }
 
-        public void DelModule(string ip)
+        public void DelModule(string ip, string areaName)
         {
+            string xmlpath = areaName + ".xml";
             XmlElement module = null, root = null;
             XmlDocument xmldoc = new XmlDocument();
 
@@ -102,8 +103,9 @@ namespace Controller
             xmldoc.Save(xmlpath);
         }
 
-        public void UpdateModule(string name, string oldIP, string ip, string port, string[] switches)
+        public void UpdateModule(string name, string oldIP, string ip, string port, string[] switches, string areaName)
         {
+            string xmlpath = areaName + ".xml";
             XmlElement module = null, root = null;
             XmlDocument xmldoc = new XmlDocument();
 

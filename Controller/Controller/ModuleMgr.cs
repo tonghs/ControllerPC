@@ -12,17 +12,43 @@ namespace Controller
     public partial class ModuleMgr : Form
     {
         XmlUtil xu = new XmlUtil();
-        public ModuleMgr(string areaName)
+        public ModuleMgr()
         {
             InitializeComponent();
             dgvModules.AutoGenerateColumns = false;
-            this.BindData(areaName);
+            this.BindArea();            
         }
 
-        public void BindData(string areaName)
+        /// <summary>
+        /// 
+        /// 绑定区域
+        /// </summary>
+        public void BindArea()
         {
+            this.cmbArea.DisplayMember = "name";
+            this.cmbArea.ValueMember = "name";
+            DataTable dtArea = xu.GetArea();
+            this.cmbArea.DataSource = dtArea;            
+        }
+
+        /// <summary>
+        /// 绑定列表数据
+        /// </summary>
+        public void BindData()
+        {
+            string areaName = this.cmbArea.SelectedValue.ToString();
             DataTable dt = xu.GetXmlTable(areaName);
             dgvModules.DataSource = dt;
+
+            for (int i = 0; i < dgvModules.Columns.Count; i++ )
+            {
+                DataGridViewColumn col = dgvModules.Columns[i];
+                if (col.GetType() == typeof(DataGridViewLinkColumn))
+                {
+                    dgvModules.Columns.RemoveAt(i--);                    
+                }
+            }
+
             //为每行数据增加编辑列。
             //创建一个DataGridViewLinkColumn列
             DataGridViewLinkColumn dlink = new DataGridViewLinkColumn();
@@ -54,47 +80,51 @@ namespace Controller
 
         private void dgvModules_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            string areaName = this.cmbArea.SelectedValue.ToString();
             int colIndex = e.ColumnIndex;
             string ip = this.dgvModules.SelectedRows[0].Cells[1].Value.ToString();
             DataTable dt = new DataTable();
             switch (colIndex)
             {
                 case 3:
-                    UpdateModule(ip);
-                    dt = xu.GetXmlTable("modules");
+                    UpdateModule(ip, areaName);
+                    dt = xu.GetXmlTable(areaName);
                     dgvModules.DataSource = dt;
                     break;
                 case 4:
-                    DelModule(ip);
-                    dt = xu.GetXmlTable("modules");
+                    DelModule(ip, areaName);
+                    dt = xu.GetXmlTable(areaName);
                     dgvModules.DataSource = dt;
                     break;
                 case 5:
-                    ViewModule(ip);
+                    ViewModule(ip, areaName);
                     break;
             }
         }
 
-        private void ViewModule(string ip)
+        private void ViewModule(string ip, string areaName)
         {
-            NewModule nmFrom = new NewModule(ip, "view", "modules");
+            NewModule nmFrom = new NewModule(ip, "view", areaName);
             nmFrom.ShowDialog();
         }
 
-        private void DelModule(string ip)
+        private void DelModule(string ip, string areaName)
         {
             if (MessageBox.Show("确认删除？", "此删除不可恢复", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                new XmlUtil().DelModule(ip);
+                new XmlUtil().DelModule(ip, areaName);
             }
         }
 
-        private void UpdateModule(string ip)
+        private void UpdateModule(string ip, string areaName)
         {
-            NewModule nmFrom = new NewModule(ip, "mod", "modules");
+            NewModule nmFrom = new NewModule(ip, "mod", areaName);
             nmFrom.ShowDialog();
         }
 
-
+        private void cmbArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
     }
 }

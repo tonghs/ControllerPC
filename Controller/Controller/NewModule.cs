@@ -18,11 +18,25 @@ namespace Controller
         public NewModule()
         {
             InitializeComponent();
+            this.BindData();
+        }
+
+        /// <summary>
+        /// 绑定区域列表
+        /// </summary>
+        public void BindData()
+        {
+            DataTable dt = xu.GetArea();
+            this.cmbArea.DataSource = dt;
+            this.cmbArea.DisplayMember = "name";
+            this.cmbArea.ValueMember = "name";
         }
 
         public NewModule(string ip, string action, string areaName)
         {
             InitializeComponent();
+            this.cmbArea.Text = areaName;
+            this.cmbArea.SelectedValue = areaName;
             this.ip_ = ip;
             this.action = action;
             if (!action.Equals("add"))
@@ -54,6 +68,7 @@ namespace Controller
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             bool isExsist = false;
+            string areaName = this.cmbArea.Text; ;
             string name = this.txtName.Text;
             string ip = this.txtIP.Text.Trim();
             string port = this.txtPort.Text;
@@ -74,7 +89,7 @@ namespace Controller
                 }
                 else
                 {
-                    DataTable dt = xu.GetXmlTable("modules");
+                    DataTable dt = xu.GetXmlTable(areaName);
                     if (dt.Rows != null && dt.Rows.Count > 0)
                     {
                         foreach (DataRow dr in dt.Rows)
@@ -88,7 +103,7 @@ namespace Controller
                         }
                         if (!isExsist)
                         {
-                            xu.AddModule(name, ip, port, switches);
+                            xu.AddModule(name, ip, port, switches, areaName);
                             MessageBox.Show("添加成功");
                             this.Close();
                         }
@@ -104,7 +119,7 @@ namespace Controller
                 }
                 else
                 {
-                    DataTable dt = xu.GetXmlTable("modules");
+                    DataTable dt = xu.GetXmlTable(areaName);
                     if (dt.Rows != null && dt.Rows.Count > 0)
                     {
                         foreach (DataRow dr in dt.Rows)
@@ -118,7 +133,7 @@ namespace Controller
                         }
                         if (!isExsist)
                         {
-                            xu.UpdateModule(name, this.ip_, ip, port, switches);
+                            xu.UpdateModule(name, this.ip_, ip, port, switches, areaName);
                             MessageBox.Show("修改成功");
                             this.Close();
                         }

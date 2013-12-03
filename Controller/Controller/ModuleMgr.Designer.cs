@@ -32,6 +32,8 @@
             this.名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.端口 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmbArea = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModules)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,11 +45,11 @@
             this.名称,
             this.IP,
             this.端口});
-            this.dgvModules.Location = new System.Drawing.Point(13, 11);
+            this.dgvModules.Location = new System.Drawing.Point(13, 49);
             this.dgvModules.Name = "dgvModules";
             this.dgvModules.RowTemplate.Height = 23;
             this.dgvModules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvModules.Size = new System.Drawing.Size(455, 437);
+            this.dgvModules.Size = new System.Drawing.Size(473, 437);
             this.dgvModules.TabIndex = 0;
             this.dgvModules.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModules_CellContentClick);
             // 
@@ -73,11 +75,31 @@
             this.端口.Name = "端口";
             this.端口.Width = 60;
             // 
+            // cmbArea
+            // 
+            this.cmbArea.FormattingEnabled = true;
+            this.cmbArea.Location = new System.Drawing.Point(45, 12);
+            this.cmbArea.Name = "cmbArea";
+            this.cmbArea.Size = new System.Drawing.Size(100, 20);
+            this.cmbArea.TabIndex = 16;
+            this.cmbArea.SelectedIndexChanged += new System.EventHandler(this.cmbArea_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "区域";
+            // 
             // ModuleMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 461);
+            this.ClientSize = new System.Drawing.Size(498, 538);
+            this.Controls.Add(this.cmbArea);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dgvModules);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -86,6 +108,7 @@
             this.Text = "模块管理";
             ((System.ComponentModel.ISupportInitialize)(this.dgvModules)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -95,6 +118,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 名称;
         private System.Windows.Forms.DataGridViewTextBoxColumn IP;
         private System.Windows.Forms.DataGridViewTextBoxColumn 端口;
+        private System.Windows.Forms.ComboBox cmbArea;
+        private System.Windows.Forms.Label label4;
 
     }
 }

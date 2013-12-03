@@ -102,7 +102,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\modules.xml" />
     <Content Include="bin\Debug\车间1.xml" />
     <Content Include="modules.xml" />
   </ItemGroup>

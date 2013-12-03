@@ -36,9 +36,10 @@
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.help_About = new System.Windows.Forms.ToolStripMenuItem();
             this.gboxArea = new System.Windows.Forms.GroupBox();
-            this.gboxController = new System.Windows.Forms.GroupBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.gboxController = new System.Windows.Forms.GroupBox();
             this.panelController = new System.Windows.Forms.Panel();
+            this.file_AreaMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.gboxArea.SuspendLayout();
             this.gboxController.SuspendLayout();
@@ -59,6 +60,7 @@
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.file_NewModule,
+            this.file_AreaMgr,
             this.file_ModuleMgr,
             this.file_Exit});
             this.fileMenu.Name = "fileMenu";
@@ -68,21 +70,21 @@
             // file_NewModule
             // 
             this.file_NewModule.Name = "file_NewModule";
-            this.file_NewModule.Size = new System.Drawing.Size(124, 22);
+            this.file_NewModule.Size = new System.Drawing.Size(152, 22);
             this.file_NewModule.Text = "添加模块";
             this.file_NewModule.Click += new System.EventHandler(this.file_NewModule_Click);
             // 
             // file_ModuleMgr
             // 
             this.file_ModuleMgr.Name = "file_ModuleMgr";
-            this.file_ModuleMgr.Size = new System.Drawing.Size(124, 22);
+            this.file_ModuleMgr.Size = new System.Drawing.Size(152, 22);
             this.file_ModuleMgr.Text = "模块管理";
             this.file_ModuleMgr.Click += new System.EventHandler(this.file_ModuleMgr_Click);
             // 
             // file_Exit
             // 
             this.file_Exit.Name = "file_Exit";
-            this.file_Exit.Size = new System.Drawing.Size(124, 22);
+            this.file_Exit.Size = new System.Drawing.Size(152, 22);
             this.file_Exit.Text = "退出";
             this.file_Exit.Click += new System.EventHandler(this.file_Exit_Click);
             // 
@@ -110,6 +112,14 @@
             this.gboxArea.TabStop = false;
             this.gboxArea.Text = "区域";
             // 
+            // panelMenu
+            // 
+            this.panelMenu.AutoScroll = true;
+            this.panelMenu.Location = new System.Drawing.Point(7, 15);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(126, 660);
+            this.panelMenu.TabIndex = 0;
+            // 
             // gboxController
             // 
             this.gboxController.Controls.Add(this.panelController);
@@ -120,14 +130,6 @@
             this.gboxController.TabStop = false;
             this.gboxController.Text = "控制";
             // 
-            // panelMenu
-            // 
-            this.panelMenu.AutoScroll = true;
-            this.panelMenu.Location = new System.Drawing.Point(7, 15);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(126, 660);
-            this.panelMenu.TabIndex = 0;
-            // 
             // panelController
             // 
             this.panelController.AutoScroll = true;
@@ -135,6 +137,12 @@
             this.panelController.Name = "panelController";
             this.panelController.Size = new System.Drawing.Size(960, 660);
             this.panelController.TabIndex = 0;
+            // 
+            // file_AreaMgr
+            // 
+            this.file_AreaMgr.Name = "file_AreaMgr";
+            this.file_AreaMgr.Size = new System.Drawing.Size(152, 22);
+            this.file_AreaMgr.Text = "区域管理";
             // 
             // Main
             // 
@@ -172,6 +180,7 @@
         private System.Windows.Forms.GroupBox gboxController;
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelController;
+        private System.Windows.Forms.ToolStripMenuItem file_AreaMgr;
     }
 }
 

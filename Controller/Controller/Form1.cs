@@ -210,7 +210,7 @@ namespace Controller
 
         private void file_ModuleMgr_Click(object sender, EventArgs e)
         {
-            ModuleMgr mgrForm = new ModuleMgr("modules");
+            ModuleMgr mgrForm = new ModuleMgr();
             mgrForm.ShowDialog();
             BindData();
         }
