@@ -63,6 +63,12 @@
     <Compile Include="ModuleMgr.Designer.cs">
       <DependentUpon>ModuleMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewArea.Designer.cs">
+      <DependentUpon>NewArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewModule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModuleMgr.resx">
       <DependentUpon>ModuleMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewArea.resx">
+      <DependentUpon>NewArea.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewModule.resx">
       <DependentUpon>NewModule.cs</DependentUpon>

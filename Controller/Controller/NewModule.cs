@@ -101,12 +101,13 @@ namespace Controller
                                 break;
                             }
                         }
-                        if (!isExsist)
-                        {
-                            xu.AddModule(name, ip, port, switches, areaName);
-                            MessageBox.Show("添加成功");
-                            this.Close();
-                        }
+                    }
+
+                    if (!isExsist)
+                    {
+                        xu.AddModule(name, ip, port, switches, areaName);
+                        MessageBox.Show("添加成功");
+                        this.Close();
                     }
                 }
             }

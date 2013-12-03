@@ -101,6 +101,10 @@ namespace Controller
             {
                 this.RenderController(dt);
             }
+            else
+            {
+                panelController.Controls.Clear();
+            }
         }
 
         public void RenderController(DataTable dt)
@@ -214,7 +218,16 @@ namespace Controller
             mgrForm.ShowDialog();
             BindData();
         }
+
+        private void file_newArea_Click(object sender, EventArgs e)
+        {
+            NewArea area = new NewArea();
+            area.ShowDialog();
+            BindData();
+        }
+        
         #endregion
+
         
     }
 }
