@@ -30,6 +30,11 @@ namespace Controller
         }
 
         #region 事件
+        /// <summary>
+        /// 开关事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void switch_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -43,12 +48,14 @@ namespace Controller
                 moduleIndex = int.Parse(index[2]);
             }
 
-            int state = int.Parse(btn.Tag.ToString());//开关状态            
+            int state = int.Parse(btn.Tag.ToString());//开关状态
+            state = state == 1 ? 0 : 1;
             //接收端ip
             string ip = GetControllerByName("lblIp" + moduleIndex, btn.Parent).Text;
             int port = int.Parse(GetControllerByName("lblPort" + moduleIndex, btn.Parent).Text);
+            byte[] msg = new Message().GetRequestMsg(ip, moduleIndex, switchIndex, state);
             //发送
-            //this.Send(ip, port, moduleIndex, switchIndex, state);
+            this.Send(ip, port,msg, moduleIndex);
         }
         
        
@@ -81,6 +88,7 @@ namespace Controller
             {
                 panelController.Controls.Clear();
             }
+            this.InitModule();
         }
 
         /// <summary>
@@ -188,20 +196,7 @@ namespace Controller
                     btn.FlatStyle = FlatStyle.Flat;                  
                     btn.Location = new Point(60 + leftPadding, j * 25 + 60);
                     btn.Name = "btn_" + j + "_" + i;//btn_开关索引_模块索引
-                    btn.Click += new EventHandler(switch_Click);
-                    ////获取继电器状态
-                    //if (mUtil.GetStatus(msg, j) == 1)
-                    //{
-                    //    btn.Text = "开";
-                    //    btn.BackColor = Color.Yellow;
-                    //    btn.ForeColor = Color.Black;
-                    //}
-                    //else
-                    //{
-                    //    btn.Text = "关";
-                    //    btn.BackColor = Control.DefaultBackColor;
-                    //    btn.ForeColor = Color.Black;
-                    //}
+                    btn.Click += new EventHandler(switch_Click);                    
                     panel.Controls.Add(btn);
                 }
 
@@ -250,24 +245,25 @@ namespace Controller
             string text = "";
             Color color = Control.DefaultBackColor;
             Color foreColor = Color.Black;
+            int tag = 0;
             switch(state)
             {
                 case 0:
                     text = "关";
                     color = Control.DefaultBackColor;
-                    foreColor = Color.Black;
+                    tag = 0;
                     break;
 
                 case 1:
                     text = "开";
                     color = Color.Yellow;
-                    foreColor = Color.Black;
+                    tag = 1;
                     break;
 
                 case 2:
                     text = "超时";
                     color = Color.Red;
-                    foreColor = Color.White;
+                    tag = 0;
                     break;
             }
             
@@ -275,6 +271,7 @@ namespace Controller
             btn.Text = text;
             btn.BackColor = color;
             btn.ForeColor = foreColor;
+            btn.Tag = tag;
         }
 
         public void InitModule()
@@ -301,22 +298,33 @@ namespace Controller
         /// </summary>
         public void SetStatus(byte[] msg, int moduleIndex)
         {
-            Message mUtil = new Message();
-            //6个继电器分别设置
-            for (int i = 0; i < 6; i++)
+            if (msg != null)
             {
-                string btnName = "btn_" + i + "_" + moduleIndex;
-                uint state = mUtil.GetStatus(msg, i);
-                if (state == 1)
+                Message mUtil = new Message();
+                //6个继电器分别设置
+                for (int i = 0; i < 6; i++)
                 {
-                    SetButtonText(btnName, 1);
+                    string btnName = "btn_" + i + "_" + moduleIndex;
+                    uint state = mUtil.GetStatus(msg, i);
+                    if (state == 1)
+                    {
+                        SetButtonText(btnName, 1);
+                    }
+                    else if (state == 0)
+                    {
+                        SetButtonText(btnName, 0);
+                    }
+                    else
+                    {
+                        SetButtonText(btnName, 2);
+                    }
                 }
-                else if (state == 0)
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
                 {
-                    SetButtonText(btnName, 0);
-                }
-                else
-                {
+                    string btnName = "btn_" + i + "_" + moduleIndex;
                     SetButtonText(btnName, 2);
                 }
             }
@@ -326,7 +334,12 @@ namespace Controller
         #region 菜单
         private void file_Exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            System.Environment.Exit(0);                        
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
 
         private void file_NewModule_Click(object sender, EventArgs e)
@@ -368,7 +381,7 @@ namespace Controller
             {                
                 TcpClient client = new TcpClient(h.Ip, h.Port);
                 NetworkStream ns = client.GetStream();
-                ns.ReadTimeout = 1000;
+                ns.ReadTimeout = 4000;
                 ns.Write(h.Msg, 0, h.Msg.Length);
                 //Thread.Sleep(1000);                
                 int len = ns.Read(msg, 0, msg.Length);
@@ -393,5 +406,7 @@ namespace Controller
         }
 
         #endregion
+
+        
     }
 }

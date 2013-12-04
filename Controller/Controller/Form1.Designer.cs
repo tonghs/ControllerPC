@@ -31,6 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.file_NewModule = new System.Windows.Forms.ToolStripMenuItem();
+            this.file_newArea = new System.Windows.Forms.ToolStripMenuItem();
+            this.file_AreaMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.file_ModuleMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.file_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,8 +41,6 @@
             this.panelMenu = new System.Windows.Forms.Panel();
             this.gboxController = new System.Windows.Forms.GroupBox();
             this.panelController = new System.Windows.Forms.Panel();
-            this.file_AreaMgr = new System.Windows.Forms.ToolStripMenuItem();
-            this.file_newArea = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.gboxArea.SuspendLayout();
             this.gboxController.SuspendLayout();
@@ -75,6 +75,19 @@
             this.file_NewModule.Size = new System.Drawing.Size(152, 22);
             this.file_NewModule.Text = "添加模块";
             this.file_NewModule.Click += new System.EventHandler(this.file_NewModule_Click);
+            // 
+            // file_newArea
+            // 
+            this.file_newArea.Name = "file_newArea";
+            this.file_newArea.Size = new System.Drawing.Size(152, 22);
+            this.file_newArea.Text = "添加区域";
+            this.file_newArea.Click += new System.EventHandler(this.file_newArea_Click);
+            // 
+            // file_AreaMgr
+            // 
+            this.file_AreaMgr.Name = "file_AreaMgr";
+            this.file_AreaMgr.Size = new System.Drawing.Size(152, 22);
+            this.file_AreaMgr.Text = "区域管理";
             // 
             // file_ModuleMgr
             // 
@@ -140,19 +153,6 @@
             this.panelController.Size = new System.Drawing.Size(960, 660);
             this.panelController.TabIndex = 0;
             // 
-            // file_AreaMgr
-            // 
-            this.file_AreaMgr.Name = "file_AreaMgr";
-            this.file_AreaMgr.Size = new System.Drawing.Size(152, 22);
-            this.file_AreaMgr.Text = "区域管理";
-            // 
-            // file_newArea
-            // 
-            this.file_newArea.Name = "file_newArea";
-            this.file_newArea.Size = new System.Drawing.Size(152, 22);
-            this.file_newArea.Text = "添加区域";
-            this.file_newArea.Click += new System.EventHandler(this.file_newArea_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -167,6 +167,7 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PC控制端";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.gboxArea.ResumeLayout(false);
