@@ -8,28 +8,48 @@ namespace Controller
     class Host
     {
         private string ip;
+        public string Ip
+        {
+            get { return ip; }
+            set { ip = value; }
+        }
+
         private int port;
+        public int Port
+        {
+            get { return port; }
+            set { port = value; }
+        }
+
         private byte[] msg;
-        public Host(string ip, int port, byte[] msg)
+        public byte[] Msg
+        {
+            get { return msg; }
+            set { msg = value; }
+        }
+
+        private int moduleIndex;
+        public int ModuleIndex
+        {
+            get { return moduleIndex; }
+            set { moduleIndex = value; }
+        }
+
+        //private int switchIndex;
+        //public int SwitchIndex
+        //{
+        //    get { return switchIndex; }
+        //    set { switchIndex = value; }
+        //}
+
+        public Host(string ip, int port, byte[] msg, int moduleIndex)
         {
             this.ip = ip;
             this.port = port;
             this.msg = msg;
+            this.moduleIndex = moduleIndex;
+            //this.switchIndex = switchIndex;
         }
 
-        public string getIP()
-        {
-            return this.ip;
-        }
-
-        public int getPort()
-        {
-            return this.port;
-        }
-
-        public byte[] getMsg()
-        {
-            return this.msg;
-        }
     }
 }
