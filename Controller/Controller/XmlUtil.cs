@@ -122,5 +122,20 @@ namespace Controller
             }
             xmldoc.Save(xmlpath);
         }
+
+        public void DelArea(string areaName)
+        {
+            FileInfo file = new FileInfo(areaName + ".xml");
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        public void UpdateArea(string areaName, string newName)
+        {
+            FileInfo file = new FileInfo(areaName + ".xml");
+            file.MoveTo(newName + ".xml");
+        }
     }
 }

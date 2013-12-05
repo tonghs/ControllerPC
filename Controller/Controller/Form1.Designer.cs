@@ -88,6 +88,7 @@
             this.file_AreaMgr.Name = "file_AreaMgr";
             this.file_AreaMgr.Size = new System.Drawing.Size(152, 22);
             this.file_AreaMgr.Text = "区域管理";
+            this.file_AreaMgr.Click += new System.EventHandler(this.file_AreaMgr_Click);
             // 
             // file_ModuleMgr
             // 

@@ -13,21 +13,40 @@ namespace Controller
 {
     public partial class NewArea : Form
     {
+        private string action = "";
+        private string areaName = "";
         public NewArea()
         {
             InitializeComponent();
         }
 
+        public NewArea(string areaName, string action)
+        {
+            InitializeComponent();
+            this.action = action;
+            this.areaName = areaName;
+            this.txtArea.Text = this.areaName;
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string areaName = this.txtArea.Text;
-            if (string.IsNullOrEmpty(areaName))
+            string newAreaName = this.txtArea.Text;
+            if (string.IsNullOrEmpty(newAreaName))
             {
                 MessageBox.Show("区域名不可为空！");
             }
             else
             {
-                this.CreateAreaFile(areaName);
+                if (this.action.Equals("mod"))
+                {
+                    new XmlUtil().UpdateArea(this.areaName, newAreaName);
+                    MessageBox.Show("修改区域成功！");
+                    this.Close();
+                }
+                else
+                {
+                    this.CreateAreaFile(newAreaName);
+                }
             }
         }
 

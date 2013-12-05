@@ -119,6 +119,7 @@ namespace Controller
         {
             try
             {
+                this.panelMenu.Controls.Clear();
                 DataTable dt = xu.GetArea();
                 if (dt != null && dt.Rows != null && dt.Rows.Count > 0)
                 {
@@ -268,10 +269,13 @@ namespace Controller
             }
             
             Button btn = (Button)GetControllerByName(name, this.panelController);
-            btn.Text = text;
-            btn.BackColor = color;
-            btn.ForeColor = foreColor;
-            btn.Tag = tag;
+            if (btn != null)
+            {
+                btn.Text = text;
+                btn.BackColor = color;
+                btn.ForeColor = foreColor;
+                btn.Tag = tag;
+            }
         }
 
         public void InitModule()
@@ -360,9 +364,15 @@ namespace Controller
         {
             NewArea area = new NewArea();
             area.ShowDialog();
-            BindData();
+            this.BindData();
         }
-        
+
+        private void file_AreaMgr_Click(object sender, EventArgs e)
+        {
+            AreaMgr areaMgr = new AreaMgr();
+            areaMgr.ShowDialog();
+            this.BindData();
+        }        
         #endregion        
         
         #region 线程相关
@@ -407,6 +417,7 @@ namespace Controller
 
         #endregion
 
+        
         
     }
 }
