@@ -138,11 +138,14 @@ namespace Controller
                         this.panelMenu.Controls.Add(btn);
                     }
                 }
-                this.btn_Click(this.panelMenu.Controls[0], null);
+                if (this.panelMenu.Controls.Count > 0)
+                {
+                    this.btn_Click(this.panelMenu.Controls[0], null);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("启动错误，请检查配置文件");
+                MessageBox.Show("启动错误!");
             }
         }
         
