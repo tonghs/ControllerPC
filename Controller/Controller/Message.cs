@@ -31,7 +31,7 @@ namespace Controller
         {
             get 
             {
-                requestMsg = new byte[15];
+                requestMsg = new byte[17];
                 //协议头
                 requestMsg[0] = 0xAA;
                 requestMsg[1] = 0x55;
@@ -49,12 +49,14 @@ namespace Controller
                 //继电器及开关
                 requestMsg[8] = 0x00;
                 requestMsg[9] = 0x00;
+
                 requestMsg[10] = 0x00;
                 requestMsg[11] = 0x00;
 
                 requestMsg[12] = 0x00;
                 requestMsg[13] = 0xcc;
                 requestMsg[14] = 0xdd;
+
 
                 return requestMsg; 
             }
@@ -83,6 +85,7 @@ namespace Controller
                 //继电器及开关
                 controlMsg[8] = 0x00;
                 controlMsg[9] = 0x00;
+
                 controlMsg[10] = 0x00;
                 controlMsg[11] = 0x00;
 
@@ -102,7 +105,7 @@ namespace Controller
         /// <returns></returns>
         public uint GetStatus(byte[] msg, int index)
         {
-            uint temp = (((main & msg[8]) << 24) | main) & (((main & msg[9]) << 16) | main) & (((main & msg[10]) << 8) | main) & msg[11];
+            uint temp = (((main & msg[6]) << 24) | main) & (((main & msg[7]) << 16) | main) & (((main & msg[8]) << 8) | main) & msg[9];
             uint state = (temp << (32 - index - 1)) >> 31;
 
             return state;
@@ -124,7 +127,7 @@ namespace Controller
                 msg = ControlMsg;
             }
 
-            int index = 11 - switchIndex / 8;
+            int index = 9 - switchIndex / 8;
             int offset = switchIndex % 8;
 
             BitArray bits = new BitArray(new byte[] { msg[index] });

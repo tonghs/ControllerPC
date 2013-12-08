@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Net.Sockets;
 using System.Threading;
+using System.Configuration;
 
 namespace Controller
 {
@@ -26,7 +27,6 @@ namespace Controller
             this.panelController.MouseWheel += new MouseEventHandler(panelController_MouseWheel);
             //绑定数据源
             this.BindData();
-            this.InitModule();
         }
 
         #region 事件
@@ -390,21 +390,23 @@ namespace Controller
             Host h = (Host)host;
             MyInvoke mi = new MyInvoke(SetStatus);
             byte[] msg = new byte[15];
+            TcpClient client = new TcpClient(h.Ip, h.Port);
+            NetworkStream ns = client.GetStream();
             try
-            {                
-                TcpClient client = new TcpClient(h.Ip, h.Port);
-                NetworkStream ns = client.GetStream();
-                ns.ReadTimeout = 4000;
-                ns.Write(h.Msg, 0, h.Msg.Length);
-                //Thread.Sleep(1000);                
-                int len = ns.Read(msg, 0, msg.Length);
+            {
 
-                ns.Close();
-                client.Close();
+                ns.ReadTimeout = int.Parse(ConfigurationSettings.AppSettings["timeout"].ToString());
+                ns.Write(h.Msg, 0, h.Msg.Length);
+                int len = ns.Read(msg, 0, msg.Length);
             }
             catch (Exception e)
             {
                 msg = null;
+            }
+            finally
+            {
+                ns.Close();
+                client.Close();
             }
             //保存当前状态
             if (Message.CurrentState.Contains(h.Ip))
