@@ -50,9 +50,10 @@ namespace Controller
                 requestMsg[8] = 0x00;
                 requestMsg[9] = 0x00;
 
+                //电位状态
                 requestMsg[10] = 0x00;
+                //校验和
                 requestMsg[11] = 0x00;
-
                 requestMsg[12] = 0x00;
                 requestMsg[13] = 0xcc;
                 requestMsg[14] = 0xdd;
@@ -86,9 +87,11 @@ namespace Controller
                 controlMsg[8] = 0x00;
                 controlMsg[9] = 0x00;
 
+                //电位状态
                 controlMsg[10] = 0x00;
-                controlMsg[11] = 0x00;
 
+                //校验和
+                controlMsg[11] = 0x00;
                 controlMsg[12] = 0x00;
                 controlMsg[13] = 0xcc;
                 controlMsg[14] = 0xdd;
@@ -138,6 +141,25 @@ namespace Controller
             msg[index] = buffer[0];
 
             return msg;
+        }
+
+        /// <summary>
+        /// 
+        /// 根据报文获取电位
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public uint[] GetEPByMsg(byte[] msg)
+        {
+            uint[] eps = new uint[8];
+            for (int i = 0; i < 8; i++)
+            {
+                uint temp = (((main & msg[7]) << 24) | main) & (((main & msg[8]) << 16) | main) & (((main & msg[9]) << 8) | main) & msg[10];
+                uint state = (temp << (32 - i - 1)) >> 31;
+                eps[i] = state;
+            }
+
+            return eps;
         }
     }
 }

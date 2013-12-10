@@ -17,6 +17,7 @@ namespace Controller
     {
         int rowCount = 5;
         int leftPadding = 20;
+        int epMargin = 17;
         SockectUtil su = new SockectUtil();
         XmlUtil xu = new XmlUtil();
         public delegate void MyInvoke(byte[] msg, int moduleIndex);
@@ -164,8 +165,8 @@ namespace Controller
                 string port = dr["port"].ToString();                        
 
                 Panel panel = new Panel();
-                panel.Size = new Size(180, 230);
-                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 240);
+                panel.Size = new Size(180, 250);
+                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 260);
                 panel.Name = "panelController" + i;
                 
                 Label lblName = new Label();
@@ -185,12 +186,28 @@ namespace Controller
                 lblPort.Name = "lblPort" + i;
                 lblPort.Location = new Point(100 + leftPadding, 35);
                 panel.Controls.Add(lblPort);
+
+                //设置电位显示
+                for (int k = 0; k < 8; k++)
+                {
+                    Label lblEp1 = new Label();
+                    lblEp1.Text = k.ToString();
+                    lblEp1.Width = 15;
+                    lblEp1.Height = 15;
+                    lblEp1.BackColor = Color.Green;
+                    lblEp1.ForeColor = Color.White;
+                    lblEp1.Name = "lblEp_" + k + "_" + i;
+                    lblEp1.Location = new Point(k * epMargin + leftPadding, 60);
+                    lblEp1.TextAlign = ContentAlignment.MiddleCenter;
+                    panel.Controls.Add(lblEp1);
+                }
+
                 Message mUtil = new Message();
                 for (int j = 0; j < 6; j++)
                 {
                     Label lblSwitch = new Label();
                     lblSwitch.Width = 40;
-                    lblSwitch.Location = new Point(leftPadding, j * 25 + 63);
+                    lblSwitch.Location = new Point(leftPadding, j * 25 + 88);
                     lblSwitch.Text = dr["switch" + (j + 1)].ToString();
                     panel.Controls.Add(lblSwitch);
 
@@ -198,7 +215,7 @@ namespace Controller
                     btn.Tag = i;
                     btn.Text = "获取中";
                     btn.FlatStyle = FlatStyle.Flat;                  
-                    btn.Location = new Point(60 + leftPadding, j * 25 + 60);
+                    btn.Location = new Point(60 + leftPadding, j * 25 + 85);
                     btn.Name = "btn_" + j + "_" + i;//btn_开关索引_模块索引
                     btn.Click += new EventHandler(switch_Click);                    
                     panel.Controls.Add(btn);
@@ -281,6 +298,27 @@ namespace Controller
             }
         }
 
+        public void SetEpState(string lblEpName, int state)
+        {
+            Color color = Color.Green;
+            switch (state)
+            {
+                case 0:
+                    color = Color.Green;
+                    break;
+
+                case 1:
+                    color = Color.Red;
+                    break;
+            }
+
+            Label lblEp = (Label)GetControllerByName(lblEpName, this.panelController);
+            if (lblEp != null)
+            {
+                lblEp.BackColor = color;
+            }
+        }
+
         public void InitModule()
         {
             //初始化继电器标志
@@ -324,6 +362,21 @@ namespace Controller
                     else
                     {
                         SetButtonText(btnName, 2);
+                    }
+                }
+
+                //8个电位指示
+                uint[] status = mUtil.GetEPByMsg(msg);
+                for (int i = 0; i < 8; i++)
+                {
+                    string lblName = "lblEp_" + i + "_" + moduleIndex;
+                    if (status[i] == 1)
+                    {
+                        SetEpState(lblName, 1);
+                    }
+                    else if (status[i] == 0)
+                    {
+                        SetEpState(lblName, 0);
                     }
                 }
             }
@@ -397,12 +450,15 @@ namespace Controller
             Host h = (Host)host;
             MyInvoke mi = new MyInvoke(SetStatus);
             byte[] msg = new byte[15];
-            TcpClient client = new TcpClient(h.Ip, h.Port);
-            NetworkStream ns = client.GetStream();
+            TcpClient client = new TcpClient();
+            NetworkStream ns = null;
             try
             {
-
-                ns.ReadTimeout = int.Parse(ConfigurationSettings.AppSettings["timeout"].ToString());
+                int timeout = int.Parse(ConfigurationSettings.AppSettings["timeout"].ToString());
+                client.SendTimeout = timeout;
+                client.Connect(h.Ip, h.Port);
+                ns = client.GetStream();
+                ns.ReadTimeout = timeout;
                 ns.Write(h.Msg, 0, h.Msg.Length);
                 int len = ns.Read(msg, 0, msg.Length);
             }
@@ -412,7 +468,10 @@ namespace Controller
             }
             finally
             {
-                ns.Close();
+                if (ns != null)
+                {
+                    ns.Close();
+                }
                 client.Close();
             }
             //保存当前状态
