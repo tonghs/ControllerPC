@@ -349,33 +349,40 @@ namespace Controller
             System.Environment.Exit(0);
         }
 
-        private void file_NewModule_Click(object sender, EventArgs e)
+        private void menuAddModule_Click(object sender, EventArgs e)
         {
             NewModule newModuleForm = new NewModule();
             newModuleForm.ShowDialog();
             BindData();
         }
 
-        private void file_ModuleMgr_Click(object sender, EventArgs e)
+        private void menuModuleMgr_Click(object sender, EventArgs e)
         {
             ModuleMgr mgrForm = new ModuleMgr();
             mgrForm.ShowDialog();
             BindData();
         }
 
-        private void file_newArea_Click(object sender, EventArgs e)
+        private void menuAddArea_Click(object sender, EventArgs e)
         {
             NewArea area = new NewArea();
             area.ShowDialog();
             this.BindData();
         }
 
-        private void file_AreaMgr_Click(object sender, EventArgs e)
+        private void menuAreaMgr_Click(object sender, EventArgs e)
         {
             AreaMgr areaMgr = new AreaMgr();
             areaMgr.ShowDialog();
             this.BindData();
-        }        
+        }
+
+
+        private void menuUpdatePwd_Click(object sender, EventArgs e)
+        {
+            UpdatePwdForm form = new UpdatePwdForm();
+            form.ShowDialog();
+        }       
         #endregion        
         
         #region 线程相关
@@ -421,8 +428,5 @@ namespace Controller
         }
 
         #endregion
-
-        
-        
     }
 }
