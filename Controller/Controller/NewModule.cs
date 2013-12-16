@@ -51,13 +51,19 @@ namespace Controller
                             this.txtName.Text = dr["name"].ToString();
                             this.txtIP.Text = dr["ip"].ToString();
                             this.txtPort.Text = dr["port"].ToString();
-                            string[] switches = new String[6];
                             this.txtSwitch1.Text = dr["switch1"].ToString();
                             this.txtSwitch2.Text = dr["switch2"].ToString();
                             this.txtSwitch3.Text = dr["switch3"].ToString();
                             this.txtSwitch4.Text = dr["switch4"].ToString();
                             this.txtSwitch5.Text = dr["switch5"].ToString();
                             this.txtSwitch6.Text = dr["switch6"].ToString();
+
+                            this.txtEp1.Text = dr["ep1"].ToString();
+                            this.txtEp2.Text = dr["ep2"].ToString();
+                            this.txtEp3.Text = dr["ep3"].ToString();
+                            this.txtEp4.Text = dr["ep4"].ToString();
+                            this.txtEp5.Text = dr["ep5"].ToString();
+                            this.txtEp6.Text = dr["ep6"].ToString();
                             break;
                         }
                     }
@@ -79,6 +85,16 @@ namespace Controller
             switches[3] = this.txtSwitch4.Text;
             switches[4] = this.txtSwitch5.Text;
             switches[5] = this.txtSwitch6.Text;
+
+            string[] eps = new String[8];
+            eps[0] = this.txtEp1.Text;
+            eps[1] = this.txtEp2.Text;
+            eps[2] = this.txtEp3.Text;
+            eps[3] = this.txtEp4.Text;
+            eps[4] = this.txtEp5.Text;
+            eps[5] = this.txtEp6.Text;
+            eps[6] = this.txtEp7.Text;
+            eps[7] = this.txtEp8.Text;
 
             if (action.Equals("add"))
             {
@@ -105,7 +121,7 @@ namespace Controller
 
                     if (!isExsist)
                     {
-                        xu.AddModule(name, ip, port, switches, areaName);
+                        xu.AddModule(name, ip, port, switches, eps, areaName);
                         MessageBox.Show("添加成功");
                         this.Close();
                     }
@@ -134,7 +150,7 @@ namespace Controller
                         }
                         if (!isExsist)
                         {
-                            xu.UpdateModule(name, this.ip_, ip, port, switches, areaName);
+                            xu.UpdateModule(name, this.ip_, ip, port, switches, eps, areaName);
                             MessageBox.Show("修改成功");
                             this.Close();
                         }

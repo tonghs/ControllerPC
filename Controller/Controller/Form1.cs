@@ -17,7 +17,6 @@ namespace Controller
     {
         int rowCount = 5;
         int leftPadding = 20;
-        int epMargin = 17;
         SockectUtil su = new SockectUtil();
         XmlUtil xu = new XmlUtil();
         public delegate void MyInvoke(byte[] msg, int moduleIndex);
@@ -165,39 +164,42 @@ namespace Controller
                 string port = dr["port"].ToString();                        
 
                 Panel panel = new Panel();
-                panel.Size = new Size(180, 250);
-                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 260);
+                panel.Size = new Size(180, 265);
+                panel.Location = new Point(190 * (i % rowCount), (i / rowCount) * 275);
                 panel.Name = "panelController" + i;
                 
                 Label lblName = new Label();
                 lblName.Text = name;
-                lblName.Font = new Font("宋体", 11F, FontStyle.Bold);
+                lblName.Font = new Font("宋体", 10F, FontStyle.Bold);
+                lblName.Height = 20;
                 lblName.Location = new Point(leftPadding, 10);
                 panel.Controls.Add(lblName);
 
                 Label lblIp = new Label();
                 lblIp.Text = ip;
                 lblIp.Name = "lblIp" + i;
-                lblIp.Location = new Point(leftPadding, 35);
+                lblIp.Height = 15;
+                lblIp.Location = new Point(leftPadding, 30);
                 panel.Controls.Add(lblIp);
 
                 Label lblPort = new Label();
                 lblPort.Text = port;
+                lblPort.Height = 15;
                 lblPort.Name = "lblPort" + i;
-                lblPort.Location = new Point(100 + leftPadding, 35);
+                lblPort.Location = new Point(100 + leftPadding, 30);
                 panel.Controls.Add(lblPort);
 
                 //设置电位显示
                 for (int k = 0; k < 8; k++)
                 {
                     Label lblEp1 = new Label();
-                    lblEp1.Text = k.ToString();
-                    lblEp1.Width = 15;
+                    lblEp1.Text = dr["ep" + (k + 1)].ToString();
+                    lblEp1.Width = 66;
                     lblEp1.Height = 15;
                     lblEp1.BackColor = Color.Green;
                     lblEp1.ForeColor = Color.White;
                     lblEp1.Name = "lblEp_" + k + "_" + i;
-                    lblEp1.Location = new Point(k * epMargin + leftPadding, 60);
+                    lblEp1.Location = new Point((k % 2) * 68 + leftPadding, (k / 2) * 17 + 45);
                     lblEp1.TextAlign = ContentAlignment.MiddleCenter;
                     panel.Controls.Add(lblEp1);
                 }
@@ -207,7 +209,7 @@ namespace Controller
                 {
                     Label lblSwitch = new Label();
                     lblSwitch.Width = 40;
-                    lblSwitch.Location = new Point(leftPadding, j * 25 + 88);
+                    lblSwitch.Location = new Point(leftPadding, j * 25 + 120);
                     lblSwitch.Text = dr["switch" + (j + 1)].ToString();
                     panel.Controls.Add(lblSwitch);
 
@@ -215,7 +217,7 @@ namespace Controller
                     btn.Tag = i;
                     btn.Text = "获取中";
                     btn.FlatStyle = FlatStyle.Flat;                  
-                    btn.Location = new Point(60 + leftPadding, j * 25 + 85);
+                    btn.Location = new Point(60 + leftPadding, j * 25 + 115);
                     btn.Name = "btn_" + j + "_" + i;//btn_开关索引_模块索引
                     btn.Click += new EventHandler(switch_Click);                    
                     panel.Controls.Add(btn);

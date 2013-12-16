@@ -54,7 +54,7 @@ namespace Controller
         /// <param name="ip"></param>
         /// <param name="port"></param>
         /// <param name="switches"></param>
-        public void AddModule(string name, string ip, string port, string[] switches, string areaName)
+        public void AddModule(string name, string ip, string port, string[] switches, string[] eps, string areaName)
         {
             string xmlpath = areaName + ".xml";
             XmlElement module = null, root = null;
@@ -85,6 +85,13 @@ namespace Controller
                 module.AppendChild(ele);
             }
 
+            for (int i = 0; i < eps.Length; i++)
+            {
+                XmlElement ele = xmldoc.CreateElement("ep" + (i + 1));
+                ele.InnerText = eps[i];
+                module.AppendChild(ele);
+            }
+
             root.AppendChild(module);
 
             xmldoc.Save(xmlpath);
@@ -103,7 +110,7 @@ namespace Controller
             xmldoc.Save(xmlpath);
         }
 
-        public void UpdateModule(string name, string oldIP, string ip, string port, string[] switches, string areaName)
+        public void UpdateModule(string name, string oldIP, string ip, string port, string[] switches, string[] eps, string areaName)
         {
             string xmlpath = areaName + ".xml";
             XmlElement module = null, root = null;
@@ -119,6 +126,11 @@ namespace Controller
             for (int i = 0; i < switches.Length; i++)
             {
                 module.GetElementsByTagName("switch" + (i + 1)).Item(0).InnerText = switches[i];
+            }
+
+            for (int i = 0; i < eps.Length; i++)
+            {
+                module.GetElementsByTagName("ep" + (i + 1)).Item(0).InnerText = eps[i];
             }
             xmldoc.Save(xmlpath);
         }
