@@ -31,7 +31,7 @@ namespace Controller
         {
             get 
             {
-                requestMsg = new byte[17];
+                requestMsg = new byte[15];
                 //协议头
                 requestMsg[0] = 0xAA;
                 requestMsg[1] = 0x55;
