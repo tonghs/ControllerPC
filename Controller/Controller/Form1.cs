@@ -406,9 +406,17 @@ namespace Controller
 
         private void menuAddModule_Click(object sender, EventArgs e)
         {
-            NewModule newModuleForm = new NewModule();
-            newModuleForm.ShowDialog();
-            BindData();
+            DataTable dt = xu.GetArea();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                NewModule newModuleForm = new NewModule();
+                newModuleForm.ShowDialog();
+                BindData();
+            }
+            else
+            {
+                MessageBox.Show("请先建立区域");
+            }
         }
 
         private void menuModuleMgr_Click(object sender, EventArgs e)
